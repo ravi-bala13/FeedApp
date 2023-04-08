@@ -3,7 +3,7 @@ const router = express.Router();
 const Post = require("../models/post.model");
 
 // Create a new post. The request should have the user_id.
-router.post("/", async (req, res) => {
+router.post("/posts/", async (req, res) => {
   try {
     const post = new Post({
       user_id: req.body.user_id,
@@ -17,7 +17,7 @@ router.post("/", async (req, res) => {
 });
 
 // GEt details of a post by id.
-router.get("/:id", async (req, res) => {
+router.get("/posts/:id", async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
     if (!post) {
@@ -30,7 +30,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // Update a post's content by id.
-router.put("/:id", async (req, res) => {
+router.put("/posts/:id", async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
     if (!post) {
@@ -45,7 +45,7 @@ router.put("/:id", async (req, res) => {
 });
 
 // Delete a post by id.
-router.delete("/:id", async (req, res) => {
+router.delete("/posts/:id", async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
     if (!post) {
@@ -59,7 +59,7 @@ router.delete("/:id", async (req, res) => {
 });
 
 // Increment the like count of a post by id.
-router.post("/:id/like", async (req, res) => {
+router.post("/posts/:id/like", async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
     if (!post) {
@@ -74,7 +74,7 @@ router.post("/:id/like", async (req, res) => {
 });
 
 // Decrement the like count of a post by id. The count should not go below 0.
-router.post("/:id/unlike", async (req, res) => {
+router.post("/posts/:id/unlike", async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
     if (!post) {
@@ -87,6 +87,26 @@ router.post("/:id/unlike", async (req, res) => {
     res.json(updatedPost);
   } catch (error) {
     res.status(400).json({ message: error.message });
+  }
+});
+
+// Get the total number of posts
+router.get("/analytics/posts", async (req, res) => {
+  try {
+    const count = await Post.countDocuments();
+    res.send({ count });
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+// Get the top 5 most liked posts
+router.get("/analytics/posts/top-liked", async (req, res) => {
+  try {
+    const posts = await Post.find().sort({ likes: -1 }).limit(5);
+    res.send(posts);
+  } catch (error) {
+    res.status(500).send(error);
   }
 });
 

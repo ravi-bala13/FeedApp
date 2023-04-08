@@ -8,6 +8,6 @@ const userController = require("./controllers/user.controller");
 const postController = require("./controllers/post.controller");
 
 app.use("/", userController);
-app.use("/posts", postController);
+app.use("/", postController);
 
 module.exports = app;
