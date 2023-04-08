@@ -18,7 +18,7 @@ router.post("/users", async (req, res) => {
   }
 });
 
-// Get a user by id
+// Get a user details by id
 router.get("/users/:id", async (req, res) => {
   try {
     const user = await User.findOne({ id: req.params.id });

@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Post = require("../models/post.model");
 
-// POST /posts: Create a new post. The request should include the user_id.
+// Create a new post. The request should have the user_id.
 router.post("/", async (req, res) => {
   try {
     const post = new Post({
@@ -16,7 +16,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-// GET /posts/{id}: Retrieve a post by id.
+// GEt details of a post by id.
 router.get("/:id", async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
@@ -29,7 +29,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// PUT /posts/{id}: Update a post's content by id.
+// Update a post's content by id.
 router.put("/:id", async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
@@ -44,7 +44,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-// DELETE /posts/{id}: Delete a post by id.
+// Delete a post by id.
 router.delete("/:id", async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
@@ -58,7 +58,7 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-// POST /posts/{id}/like: Increment the like count of a post by id.
+// Increment the like count of a post by id.
 router.post("/:id/like", async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
@@ -73,7 +73,7 @@ router.post("/:id/like", async (req, res) => {
   }
 });
 
-// POST /posts/{id}/unlike: Decrement the like count of a post by id. The count should not go below 0.
+// Decrement the like count of a post by id. The count should not go below 0.
 router.post("/:id/unlike", async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
