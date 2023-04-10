@@ -4,7 +4,8 @@ import Navbar from "./components/Navbar";
 import PostForm from "./components/PostForm";
 import UserForm from "./components/UserForm";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Home from "./components/Home";
+import UsersList from "./components/UsersList";
+import PostsList from "./components/PostsList";
 
 function App() {
   return (
@@ -12,7 +13,8 @@ function App() {
       <Navbar />
       <div className="App">
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/userlist" element={<UsersList />} />
+          <Route path="/postlist" element={<PostsList />} />
           <Route path="/userform" element={<UserForm />} />
           <Route path="/postForm" element={<PostForm />} />
         </Routes>

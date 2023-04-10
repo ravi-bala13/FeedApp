@@ -28,49 +28,57 @@ const UserForm = () => {
     } catch (error) {
       console.log("Error in handleSubmit", error);
     }
+    alert("user created successfully");
+    setFormDetails({
+      email: "",
+      name: "",
+      bio: "",
+    });
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <h1>Create User</h1>
-      <Form.Group controlId="name">
-        <Form.Label>Name</Form.Label>
-        <Form.Control
-          type="text"
-          placeholder="Enter name"
-          name="name"
-          value={formDetails.name}
-          onChange={onChange}
-        />
-      </Form.Group>
+    <div className="container-box">
+      <Form onSubmit={handleSubmit}>
+        <h1>Create User</h1>
+        <Form.Group controlId="name">
+          <Form.Label>Name</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter name"
+            name="name"
+            value={formDetails.name}
+            onChange={onChange}
+          />
+        </Form.Group>
 
-      <Form.Group controlId="email">
-        <Form.Label>Email</Form.Label>
-        <Form.Control
-          type="email"
-          name="email"
-          placeholder="Enter email"
-          value={formDetails.email}
-          onChange={onChange}
-        />
-      </Form.Group>
+        <Form.Group controlId="email">
+          <Form.Label>Email</Form.Label>
+          <Form.Control
+            type="email"
+            name="email"
+            placeholder="Enter email"
+            value={formDetails.email}
+            onChange={onChange}
+          />
+        </Form.Group>
 
-      <Form.Group controlId="bio">
-        <Form.Label>Bio</Form.Label>
-        <Form.Control
-          as="textarea"
-          name="bio"
-          rows={3}
-          placeholder="Enter bio"
-          value={formDetails.bio}
-          onChange={onChange}
-        />
-      </Form.Group>
+        <Form.Group controlId="bio">
+          <Form.Label>Bio</Form.Label>
+          <Form.Control
+            as="textarea"
+            name="bio"
+            rows={3}
+            placeholder="Enter bio"
+            value={formDetails.bio}
+            onChange={onChange}
+          />
+        </Form.Group>
 
-      <Button variant="primary" type="submit" className="submit-btn">
-        Submit
-      </Button>
-    </Form>
+        <Button variant="primary" type="submit" className="submit-btn">
+          Submit
+        </Button>
+      </Form>
+    </div>
   );
 };
 

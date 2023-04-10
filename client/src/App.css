@@ -57,7 +57,7 @@ body {
   );
 }
 
-.App {
+.container-box {
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -70,6 +70,41 @@ body {
   padding: 30px;
 }
 
+.long-box{
+  height: 100vh;
+  padding: 5px;
+  color: yellow;
+  overflow: scroll;
+}
+
+.post-box{
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  width: 95%;
+  min-height: 300px;
+  background: whitesmoke;
+  text-align: center;
+  margin: 5px auto;
+  border-radius: 10px;
+  padding: 30px;
+  color: #161a2b;
+}
+
+.user-box{
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  width: 95%;
+  min-height: 100px;
+  background: whitesmoke;
+  text-align: center;
+  margin: 5px auto;
+  border-radius: 10px;
+  padding: 30px;
+  color: #161a2b;
+}
+
 h1 {
   margin: 32px 0;
   color: #fff;
@@ -78,4 +113,11 @@ h1 {
 
 .submit-btn{
   margin-top: 50px;
+}
+
+.bottom-box{
+  display: flex;
+  justify-self: start;
+  gap: 10px;
+  padding-left: 20px;
 }
