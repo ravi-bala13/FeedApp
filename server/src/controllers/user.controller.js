@@ -20,7 +20,7 @@ router.post("/users", async (req, res) => {
 // Get a user details by id
 router.get("/users/:id", async (req, res) => {
   try {
-    const user = await User.findOne({ _id: req.params.id });
+    const user = await User.findById(req.params.id);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -33,7 +33,7 @@ router.get("/users/:id", async (req, res) => {
 // Update a user's name or bio by id
 router.put("/users/:id", async (req, res) => {
   try {
-    const user = await User.findOne({ _id: req.params.id });
+    const user = await User.findById(req.params.id);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -53,7 +53,7 @@ router.put("/users/:id", async (req, res) => {
 // Delete a user by id
 router.delete("/users/:id", async (req, res) => {
   try {
-    const user = await User.findOne({ _id: req.params.id });
+    const user = await User.findById(req.params.id);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
