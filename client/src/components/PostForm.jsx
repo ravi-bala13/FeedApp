@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import axios from "axios";
 
-const UserForm = () => {
+function PostForm(props) {
   const [formDetails, setFormDetails] = useState({
-    email: "",
-    name: "",
-    bio: "",
+    user_id: "",
+    content: "",
   });
+
+  const [usersList, setUsersList] = useState(["bala"]);
 
   const backendUrl = "http://localhost:8080/";
 
@@ -19,14 +20,12 @@ const UserForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    let formValues = { ...formDetails };
-    console.log("formValues", formValues);
     try {
       axios(backendUrl + "users", {
         method: "POST",
         mode: "no-cors",
-        // headers: { "Content-type": "application/json" },
-        body: JSON.stringify(formValues),
+        headers: { "Content-type": "application/json" },
+        body: formDetails,
       }).then((res) => console.log("Response", res));
     } catch (error) {
       console.log("Error in handleSubmit", error);
@@ -35,34 +34,29 @@ const UserForm = () => {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <h1>Create User</h1>
-      <Form.Group controlId="name">
-        <Form.Label>Name</Form.Label>
+      <h1>Create Post</h1>
+      <Form.Group controlId="formPlace">
+        {" "}
+        {/* new form group for place */}
+        <Form.Label>User</Form.Label>
         <Form.Control
-          type="text"
-          placeholder="Enter name"
-          name="name"
-          value={formDetails.name}
+          as="select"
+          value={formDetails.user_id}
+          name="user_id"
           onChange={onChange}
-        />
-      </Form.Group>
-
-      <Form.Group controlId="email">
-        <Form.Label>Email</Form.Label>
-        <Form.Control
-          type="email"
-          name="email"
-          placeholder="Enter email"
-          value={formDetails.email}
-          onChange={onChange}
-        />
+        >
+          <option value="">Select a place</option>
+          {usersList.map((ele) => (
+            <option value={ele}>{ele}</option>
+          ))}
+        </Form.Control>
       </Form.Group>
 
       <Form.Group controlId="bio">
-        <Form.Label>Bio</Form.Label>
+        <Form.Label>Content</Form.Label>
         <Form.Control
           as="textarea"
-          name="bio"
+          name="content"
           rows={3}
           placeholder="Enter bio"
           value={formDetails.bio}
@@ -75,6 +69,6 @@ const UserForm = () => {
       </Button>
     </Form>
   );
-};
+}
 
-export default UserForm;
+export default PostForm;
