@@ -3,13 +3,13 @@ const cors = require("cors");
 
 const app = express();
 
-app.use(express.json());
-
 app.use(
   cors({
     origin: "*",
   })
 );
+
+app.use(express.json());
 
 const userController = require("./controllers/user.controller");
 const postController = require("./controllers/post.controller");
