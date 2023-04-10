@@ -9,7 +9,7 @@ const UserForm = () => {
     bio: "",
   });
 
-  const backendUrl = "http://localhost:8080/";
+  const backendUrl = "https://feedapp.onrender.com/";
 
   console.log("formDetails", formDetails);
 
@@ -22,12 +22,9 @@ const UserForm = () => {
     let formValues = { ...formDetails };
     console.log("formValues", formValues);
     try {
-      axios(backendUrl + "users", {
-        method: "POST",
-        mode: "no-cors",
-        // headers: { "Content-type": "application/json" },
-        body: JSON.stringify(formValues),
-      }).then((res) => console.log("Response", res));
+      axios
+        .post(backendUrl + "users", formValues)
+        .then((res) => console.log("Response", res));
     } catch (error) {
       console.log("Error in handleSubmit", error);
     }

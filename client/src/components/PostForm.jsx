@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import axios from "axios";
 
@@ -8,9 +8,13 @@ function PostForm(props) {
     content: "",
   });
 
+  useEffect(() => {
+    getAllUsers();
+  }, []);
+
   const [usersList, setUsersList] = useState(["bala"]);
 
-  const backendUrl = "http://localhost:8080/";
+  const backendUrl = "https://feedapp.onrender.com/";
 
   console.log("formDetails", formDetails);
 
@@ -18,15 +22,20 @@ function PostForm(props) {
     setFormDetails({ ...formDetails, [e.target.name]: e.target.value });
   };
 
+  const getAllUsers = () => {
+    try {
+      axios.get(backendUrl + "users").then((res) => setUsersList(res.data));
+    } catch (error) {
+      console.log("Error in getAllUsers", error);
+    }
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     try {
-      axios(backendUrl + "users", {
-        method: "POST",
-        mode: "no-cors",
-        headers: { "Content-type": "application/json" },
-        body: formDetails,
-      }).then((res) => console.log("Response", res));
+      axios
+        .post(backendUrl + "posts", formDetails)
+        .then((res) => console.log("Response", res));
     } catch (error) {
       console.log("Error in handleSubmit", error);
     }
@@ -46,8 +55,10 @@ function PostForm(props) {
           onChange={onChange}
         >
           <option value="">Select a place</option>
-          {usersList.map((ele) => (
-            <option value={ele}>{ele}</option>
+          {usersList.map((ele, index) => (
+            <option key={index} value={ele._id}>
+              {ele.name}
+            </option>
           ))}
         </Form.Control>
       </Form.Group>
