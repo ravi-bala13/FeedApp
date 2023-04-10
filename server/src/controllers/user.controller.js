@@ -17,10 +17,20 @@ router.post("/users", async (req, res) => {
   }
 });
 
+// get all users
+router.get("/users", async (req, res) => {
+  try {
+    const user = await User.find();
+    res.status(201).json(user);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
 // Get a user details by id
 router.get("/users/:id", async (req, res) => {
   try {
-    const user = await User.findById(req.params.id);
+    const user = await User.findOne({ id: req.params.id });
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -33,7 +43,7 @@ router.get("/users/:id", async (req, res) => {
 // Update a user's name or bio by id
 router.put("/users/:id", async (req, res) => {
   try {
-    const user = await User.findById(req.params.id);
+    const user = await User.findOne({ id: req.params.id });
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -53,7 +63,7 @@ router.put("/users/:id", async (req, res) => {
 // Delete a user by id
 router.delete("/users/:id", async (req, res) => {
   try {
-    const user = await User.findById(req.params.id);
+    const user = await User.findOne({ id: req.params.id });
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -88,7 +98,7 @@ router.get("/analytics/users/top-active", async (req, res) => {
       },
       {
         $project: {
-          _id: 1,
+          id: 1,
           name: 1,
           email: 1,
           bio: 1,
