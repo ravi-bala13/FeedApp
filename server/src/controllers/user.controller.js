@@ -6,7 +6,6 @@ const User = require("../models/user.model");
 router.post("/users", async (req, res) => {
   try {
     const user = new User({
-      id: req.body.id,
       name: req.body.name,
       email: req.body.email,
       bio: req.body.bio,
@@ -21,7 +20,7 @@ router.post("/users", async (req, res) => {
 // Get a user details by id
 router.get("/users/:id", async (req, res) => {
   try {
-    const user = await User.findOne({ id: req.params.id });
+    const user = await User.findOne({ _id: req.params.id });
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -34,7 +33,7 @@ router.get("/users/:id", async (req, res) => {
 // Update a user's name or bio by id
 router.put("/users/:id", async (req, res) => {
   try {
-    const user = await User.findOne({ id: req.params.id });
+    const user = await User.findOne({ _id: req.params.id });
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -54,7 +53,7 @@ router.put("/users/:id", async (req, res) => {
 // Delete a user by id
 router.delete("/users/:id", async (req, res) => {
   try {
-    const user = await User.findOne({ id: req.params.id });
+    const user = await User.findOne({ _id: req.params.id });
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -89,7 +88,7 @@ router.get("/analytics/users/top-active", async (req, res) => {
       },
       {
         $project: {
-          id: 1,
+          _id: 1,
           name: 1,
           email: 1,
           bio: 1,
