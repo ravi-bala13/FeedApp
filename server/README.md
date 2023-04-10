@@ -1,4 +1,4 @@
-# Travelopia-Back-End
+# Feed App Backend
 This repo is assignment for backend for feedApp
 
 ## Installation and Run Locally
